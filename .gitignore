@@ -1,2 +1,6 @@
 # Variables de entorno
 .env
+
+# Volumenes
+data
+letsencrypt
