@@ -1,0 +1,24 @@
+version: "3.8"
+name: nginx_proxy_manager
+services:
+  nginx_proxy_manager:
+    container_name: nginx_proxy_manager
+    image: "jc21/nginx-proxy-manager:2"
+    env_file: .env
+    environment:
+      # Mysql connection parameters:
+      - DB_MYSQL_HOST=${DB_HOST}
+      - DB_MYSQL_PORT=${DB_PORT}
+      - DB_MYSQL_USER=${DB_USER}
+      - DB_MYSQL_PASSWORD=${DB_PASSWORD}
+      - DB_MYSQL_NAME=${DB_NAME}
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    extra_hosts:
+      - host.docker.internal:host-gateway
